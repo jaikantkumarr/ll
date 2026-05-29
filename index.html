@@ -230,13 +230,70 @@
   </section>
 
   <section id="contact">
-    <h2 class="section-title">Contact Us</h2>
-    <p class="about">
-      📧 Email: contact@samosa.in <br><br>
-      📍 India <br><br>
-      ☎️ +91 9876543210
-    </p>
-  </section>
+  <h2 class="section-title">Contact Us</h2>
+
+  <form id="contactForm" class="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="tel" name="mobile" placeholder="Mobile Number" required>
+    <textarea name="address" placeholder="Your Address" required></textarea>
+
+    <button type="submit" class="btn">Submit</button>
+  </form>
+
+  <p id="msg"></p>
+</section>
+
+<style>
+.contact-form{
+  max-width:500px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.contact-form input,
+.contact-form textarea{
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+}
+
+.contact-form textarea{
+  min-height:120px;
+}
+
+#msg{
+  text-align:center;
+  margin-top:15px;
+  font-weight:bold;
+  color:green;
+}
+</style>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbygYSHKR7spuhvSZ9w8etVdk6CLrtFbG0v-QzFExvVmJIh6-AdqGeb14Rtb4p-wTl1s/exec";
+
+const form = document.getElementById("contactForm");
+const msg = document.getElementById("msg");
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: new FormData(form)
+  })
+  .then(response => {
+    msg.innerHTML = "Form submitted successfully!";
+    form.reset();
+  })
+  .catch(error => {
+    msg.innerHTML = "Something went wrong!";
+  });
+});
+</script>
 
   <footer>
     <p>© 2026 Samosa.in | Made with ❤️ for Samosa Lovers</p>
